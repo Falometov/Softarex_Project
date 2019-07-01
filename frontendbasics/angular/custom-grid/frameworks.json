@@ -1,0 +1,112 @@
+{
+  "columns": [
+    {
+      "field": "name",
+      "displayName": "Name"
+    },
+    {
+      "field": "site",
+      "displayName": "Site"
+    },
+    {
+      "field": "description",
+      "displayName": "Description"
+    },
+    {
+      "field": "rating",
+      "displayName": "CurrentRating"
+    }
+  ],
+  "frameworks": [
+    {
+      "name": "AngularJS",
+      "site": "http://angularjs.org",
+      "description": "HTML enhanced for wed apps!",
+      "rating": 8
+    },
+    {
+      "name": "Angular",
+      "site": "http://angular.io",
+      "description": "One framework. Mobile and desktop.",
+      "rating": 10
+    },
+    {
+      "name": "jQuery",
+      "site": "http://jquery.com/",
+      "description": "Write less, do more.",
+      "rating": 9
+    },
+    {
+      "name": "Backbone",
+      "site": "http;//backbonejs.org/",
+      "description": "Models for your apps.",
+      "rating": 8
+    },
+    {
+      "name": "SproutCore",
+      "site": "http://sproutcore.com",
+      "description": "A Framework for innovative web-apps.",
+      "rating": 3
+    },
+    {
+      "name": "Polymer",
+      "site": "https://www.polymer-project.org/",
+      "description": "Reusable components for the modern web.",
+      "rating": 7
+    },
+    {
+      "name": "Vue.js",
+      "site": "https://vuejs.org/",
+      "description": "The Progressive JavaScript Framework.",
+      "rating": 6
+    },
+    {
+      "name": "Cappuccino",
+      "site": "http://www.cappuccino-project.org/",
+      "description": "Objective-J.",
+      "rating": 9
+    },
+    {
+      "name": "Knockout",
+      "site": "http://knockoutjs.com/",
+      "description": "MVVM pattern.",
+      "rating": 6
+    },
+    {
+      "name": "GWT",
+      "site": "http://www.gwtproject.org/",
+      "description": "JS in Java.",
+      "rating": 3
+    },
+    {
+      "name": "Ember",
+      "site": "http://emberjs.com/",
+      "description": "Ambitious web apps.",
+      "rating": 5
+    },
+    {
+      "name": "React",
+      "site": "https://facebook.github.io/react/",
+      "description": "A JavaScript library for building user interfaces.",
+      "rating": 8
+    },
+    {
+      "name": "Spring",
+      "site": "http://spring.io",
+      "description": "Development framework for Java.",
+      "rating": 10
+    },
+    {
+      "name": "Hibernate",
+      "site": "http://hibernate.org/",
+      "description": "Development framework for Java.",
+      "rating": 10
+    },
+    {
+      "name": "Lombok",
+      "site": "https://projectlombok.org",
+      "description": "Development framework for Java.",
+      "rating": 10
+    }
+  ]
+}

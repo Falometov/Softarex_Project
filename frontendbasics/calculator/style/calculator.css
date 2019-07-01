@@ -1,0 +1,14 @@
+.calc_button {
+    height: 70px;
+    width: 70px;
+}
+
+.input_field {
+    height: 70px;
+}
+
+#calculator {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+}

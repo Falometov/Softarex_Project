@@ -1,0 +1,165 @@
+<div class="container-fluid">
+    <ul class="nav justify-content-between mt-2">
+        <li class="nav-item">
+            <button class="btn btn-link" ng-if="$ctrl.LocalStorageService.checkRole('ROLE_ADMIN')" ui-sref="add">
+                {{'ADD_CERTIFICATE' | translate}}            
+            </button>        
+        </li>
+        <li class="nav-item mr-2">
+            <div class="row">
+                <div class="dropdown mr-4">
+                    <button class="btn btn-link dropdown-toggle" id="dropdownLang" data-toggle="dropdown">
+                        {{'LANGUAGE' | translate}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownLang">
+                        <button class="dropdown-item" ng-click="$ctrl.changeLanguage('ru')">RU</button>
+                        <button class="dropdown-item" ng-click="$ctrl.changeLanguage('en')">EN</button>
+                    </div>
+                </div> 
+                <div class="row mr-4">
+                    <img src="/images/user.png" class="rounded" height="40" width="40" ng-if="$ctrl.LocalStorageService.checkRole('ROLE_USER')">
+                    <img src="/images/admin.png" class="rounded" height="40" width="40" ng-if="$ctrl.LocalStorageService.checkRole('ROLE_ADMIN')">
+                    <span class="mt-2">{{$ctrl.LocalStorageService.getItem('userName')}}</span>
+                </div>
+                <div>
+                    <button class="btn btn-outline-primary" ui-sref="login"
+                        ng-if="!$ctrl.LocalStorageService.checkRole('ROLE_ADMIN') && !$ctrl.LocalStorageService.checkRole('ROLE_USER')">
+                        {{'LOGIN' | translate}}    
+                    </button>
+                    <button class="btn btn-outline-primary" ng-click="$ctrl.LocalStorageService.logout()"
+                        ng-if="$ctrl.LocalStorageService.checkRole('ROLE_USER') || $ctrl.LocalStorageService.checkRole('ROLE_ADMIN')">
+                        {{'LOGOUT' | translate}}
+                    </button> 
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-12">
+            <h1 class="text-center">{{'TITLE' | translate}}</h1>
+            <div class="input-group mb-3 mt-4">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownSearch" data-toggle="dropdown">
+                        {{'TITLE' | translate}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownSearch">
+                        <button class="dropdown-item" ng-click="$ctrl.findAll()">{{'ALL' | translate}}</button>
+                        <button class="dropdown-item" ng-if="$ctrl.LocalStorageService.checkRole('ROLE_USER')" ng-click="$ctrl.findUserCertificates()">
+                            {{'MY_CERTIFICATES' | translate}}
+                        </button>
+                    </div>
+                </div>
+                <input type="text" ng-model="$ctrl.name" class="form-control" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" ng-click="$ctrl.findByName()">{{'SEARCH' | translate}}</button>         
+                </div>       
+            </div>
+            <div class="row justify-content-center mb-5">
+                 <div class="card" ng-repeat="certificate in $ctrl.certificates" style="width: 25rem; margin: 25px;">
+                    <div class="card-header">
+                        <div class="row justify-content-between">
+                            <h5 class="card-title col-6 nav-link" data-toggle="modal" data-target="#descriptionModal"
+                            ng-click="$ctrl.certificate=certificate">
+                                {{certificate.name}}
+                            </h5>
+                            <h6>{{certificate.dateOfModification | dateModification | date}}</h6>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-between">
+                            <div class="col-6">
+                                <button class="badge badge-pill btn btn-success ml-1 mt-1" ng-repeat="tag in certificate.tags"
+                                    ng-click="$ctrl.tag=tag.name; $ctrl.findByTag()">{{tag.name}}</button>
+                            </div>
+                            <img src="/images/gift_certificate.jpg" class="rounded" height="100px">
+                        </div>
+                        <div class="modal fade" tabindex="-1" role="dialog" id="descriptionModal" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="descriptionModalLabel">{{$ctrl.certificate.name}}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><b>{{'DESCRIPTION' | translate}}: </b>{{$ctrl.certificate.description}}</p>
+                                        <p><b>{{'PRICE' | translate}}: </b>{{$ctrl.certificate.price}} BYN</p>
+                                        <p><b>{{'DURATION' | translate}}: </b>{{$ctrl.certificate.durationInDays}}</p>
+                                        <p><b>{{'DATE_OF_CREATION' | translate}}: </b>{{$ctrl.certificate.dateOfCreation | dateModification | date}}</p> 
+                                        <p><b>{{'DATE_OF_MODIFICATION' | translate}}: </b>{{$ctrl.certificate.dateOfModification | dateModification | date}}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row justify-content-between">
+                            <div>
+                                <button class="btn btn-danger" ng-click="$ctrl.addCertificate(certificate)"
+                                    ng-if="$ctrl.LocalStorageService.checkRole('ROLE_ADMIN')" style="width: 100px;" ui-sref="edit">
+                                    {{'EDIT' | translate}}
+                                </button>
+                                <button class="btn btn-danger" style="width: 100px;" ng-click="$ctrl.remove(certificate.id)"
+                                    ng-if="$ctrl.LocalStorageService.checkRole('ROLE_ADMIN')">
+                                    {{'DELETE' | translate}}
+                                </button>
+                            </div>
+                            <div>
+                                <button class="btn btn-danger" ng-if="$ctrl.LocalStorageService.checkRole('ROLE_USER')"
+                                    ng-click="$ctrl.certificate=certificate; $ctrl.buyCertificates()" style="width: 80px;">
+                                    {{'BUY' | translate}}
+                                </button>
+                                <b class="ml-2 mt-2">{{certificate.price}} BYN</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center" ng-if="$ctrl.pages !== 0">
+                    <div class="dropdown mr-4">
+                        <button class="btn btn-outline-primary dropdown-toggle" id="dropdownLang" data-toggle="dropdown">
+                            {{'LIMIT' | translate}}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownLang">
+                            <button class="dropdown-item" ng-click="$ctrl.setLimit(10)">10</button>
+                            <button class="dropdown-item" ng-click="$ctrl.setLimit(25)">25</button>
+                            <button class="dropdown-item" ng-click="$ctrl.setLimit(50)">50</button>
+                        </div>
+                    </div>
+                <nav class="mb-5" aria-label="Page navigation bar">
+                    <ul class="pagination">
+                        <li class="page-item" ng-class="{disabled: $ctrl.isFirstPage()}">
+                            <button class="page-link" ng-click="$ctrl.switchToFirstPage()">
+                                {{'FIRST' | translate}}
+                            </button>
+                        </li>
+                        <li class="page-item" ng-class="{disabled: $ctrl.isFirstPage()}">
+                            <button class="page-link" ng-click="$ctrl.previousPage()">
+                                <span aria-hidden="true">&laquo;</span>
+                            </button>
+                        </li>
+                        <li class="page-item" ng-repeat="index in $ctrl.arrayOfPages" ng-class="{disabled: $ctrl.page === index}">
+                            <button ng-click="$ctrl.page = index; $ctrl.findCertificates()" class="page-link">{{index}}</button>
+                        </li> 
+                        <li class="page-item" ng-class="{disabled: $ctrl.isLastPage()}">
+                            <button class="page-link" ng-click="$ctrl.nextPage()">
+                                <span aria-hidden="true">&raquo;</span>
+                            </button>
+                        </li>
+                        <li class="page-item" ng-class="{disabled: $ctrl.isLastPage()}">
+                            <button class="page-link" ng-click="$ctrl.switchToLastPage()">
+                                {{'LAST' | translate}}
+                            </button>
+                        </li>
+                    </ul>
+                </nav> 
+            </div>
+        </div>
+    </div>     
+</div>

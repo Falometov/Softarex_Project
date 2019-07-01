@@ -1,0 +1,101 @@
+<div class="container-fluid">
+    <ul class="nav justify-content-between mt-2">
+        <li class="nav-item">
+            <button class="btn btn-link" style="font-size: 25px" ui-sref="certificates">{{'GIFT_CERTIFICATES' | translate}}</button>        
+        </li>  
+        <li class="nav-item mr-2">
+            <div class="row">
+                <div class="dropdown mr-4">
+                    <button type="button" class="btn btn-link dropdown-toggle" id="dropdownLang" data-toggle="dropdown">
+                        {{'LANGUAGE' | translate}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownLang">
+                        <button class="dropdown-item" ng-click="$ctrl.changeLanguage('ru')">RU</button>
+                        <button class="dropdown-item" ng-click="$ctrl.changeLanguage('en')">EN</button>
+                    </div>
+                </div>
+                <button class="btn btn-outline-primary" ui-sref="signup">{{'SIGN_UP' | translate}}</button>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="container" style="padding: 200px">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+    <h1 class="text-center">{{'TITLE_SIGN_IN' | translate}}</h1> 
+    <div class="row justify-content-between">
+        <form class="col-5" name="form" novalidate>
+            <div class="form-group ml-3">
+                <label>{{'LABEL_LOGIN' | translate}}</label>
+                <input class="form-control" name="username" placeholder="{{'ENTER_LOGIN' | translate}}" 
+                    ng-model="$ctrl.username"
+                    ng-minlength="4"
+                    ng-maxlength="35"
+                    pattern="([A-Za-z\d-.@_]+)"
+                    required
+                    ng-class="{
+                        'is-invalid': (form.$submitted || form.username.$touched) && form.username.$invalid,
+                        'is-valid': (form.$submitted || form.username.$touched) && !(form.username.$error.required 
+                            || form.username.$error.pattern)
+                    }">
+                <div ng-class="{
+                    'invalid-feedback': form.username.$invalid,
+                    'valid-feedback': (form.username.$touched || form.username.$dirty) && form.username.$valid}">
+                    <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                        ng-show="form.username.$touched && form.username.$error.minlength">
+                        {{'USERNAME_SHORT' | translate}} {{form.username.$viewValue.length}}/4
+                    </span>
+                    <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                        ng-show="form.username.$touched && form.username.$error.maxlength">
+                        {{'USERNAME_LARGE' | translate}} {{form.username.$viewValue.length}}/35
+                    </span>
+                    <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                        ng-show="form.username.$touched && form.username.$error.required">
+                        {{'REQUIRED_FIELD' | translate}}
+                    </span>
+                    <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                        ng-show="form.username.$touched && form.username.$error.pattern">
+                        {{'NOT_CORRECT_SYMBOL' | translate}}    
+                    </span>
+                </div> 
+            </div>
+            <div class="form-group ml-3">
+                <label>{{'PASSWORD' | translate}}</label>
+                <input class="form-control" placeholder="{{'ENTER_PASSWORD' | translate}}" type="password" name="password"
+                    ng-model="$ctrl.password"
+                    ng-minlength="8"
+                    ng-maxlength="60"
+                    pattern="([A-Za-z\d_-]+)"
+                    required
+                    ng-class="{
+                        'is-invalid': (form.$submitted || form.password.$touched) && form.password.$invalid,
+                        'is-valid': (form.$submitted || form.password.$touched) && !(form.password.$error.required
+                            || form.password.$error.pattern || form.password.$error.minlength || form.password.$error.maxlength)
+                    }">
+                <div ng-class="{
+                    'invalid-feedback': form.password.$invalid,
+                    'valid-feedback': (form.password.$touched || form.password.$dirty) && form.password.$valid}">
+                    <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                        ng-show="form.password.$touched && form.password.$error.minlength">
+                        {{'PASSWORD_SHORT' | translate}} {{form.password.$viewValue.length}}/8
+                    </span>
+                    <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                        ng-show="form.password.$touched && form.password.$error.maxlength">
+                        {{'PASSWORD_LARGE' | translate}} {{form.password.$viewValue.length}}/60
+                    </span>
+                    <span class="row justify-content-end mr-2" style="color: red; font-size: 14px" 
+                        ng-show="form.password.$touched && form.password.$error.required">
+                        {{'REQUIRED_FIELD' | translate}}
+                    </span>
+                    <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                        ng-show="form.password.$touched && form.password.$error.pattern">
+                        {{'NOT_CORRECT_SYMBOL' | translate}}
+                    </span>
+                </div>         
+            </div>
+            <div class="form-group row justify-content-between ml-2">
+                <button class="btn btn-outline-primary col-5" ng-click="$ctrl.sendLogin()" ng-disabled="form.$invalid">{{'LOGIN' | translate}}</button>
+                <button class="btn btn-outline-primary col-5" ui-sref="certificates">{{'CANCEL' | translate}}</button>    
+            </div>
+        </form>
+        <img src="/images/gift_certificate.jpg" class="rounded col-7" height="250">
+    </div>
+</div>

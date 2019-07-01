@@ -1,0 +1,26 @@
+table {
+    width: 100%;
+}
+
+.custom-grid-container {
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    width: 50%;
+}
+
+.form-control {
+    width: 910px;
+}
+
+.btn {
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.filterValue {
+    position: absolute;
+    margin-top: 28px;
+    margin-left: 10px;
+    font-weight: bold;
+}

@@ -1,0 +1,22 @@
+<div class="custom-grid-container">
+    <label>Filter:<input class="form-control" id="text-field" ng-model="$ctrl.filterValue"/></label>
+    <p>
+        <button type="button" class="btn btn-default" ng-click="$ctrl.reset()" ng-disabled="!$ctrl.filterValue">
+            ResetFilter
+        </button>
+        <span class="filterValue" ng-if="$ctrl.filterValue">Your filter is: {{$ctrl.filterValue}}</span>
+    </p>
+    <table class="custom-grid">
+        <thead>
+        <tr class="custom-grid-header">
+            <th ng-repeat="column in $ctrl.columns" ng-bind="column.displayName"></th>
+        </tr>
+        </thead>
+        <tr class="custom-grid-row" ng-repeat="framework in $ctrl.data | filterByName:$ctrl.filterValue">
+            <td ng-bind="framework.name"></td>
+            <td><a href="{{framework.site}}" ng-bind="framework.site"></a></td>
+            <td ng-bind="framework.description"></td>
+            <td uib-rating ng-model="framework.rating" max="10" read-only="true"></td>
+        </tr>
+    </table>
+</div>

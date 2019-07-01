@@ -1,0 +1,191 @@
+<div class="container-fluid">
+    <ul class="nav justify-content-between mt-2">
+        <li class="nav-item">
+            <button class="btn btn-link" style="font-size: 25px" ng-click="$ctrl.checkFields()">{{'TITLE' | translate}}</button>        
+        </li>
+        <li class="nav-item mr-2">
+            <div class="row">
+                <div class="dropdown mr-4">
+                    <button class="btn btn-link dropdown-toggle" id="dropdownLang" data-toggle="dropdown">
+                        {{'LANGUAGE' | translate}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownLang">
+                        <button class="dropdown-item" ng-click="$ctrl.changeLanguage('ru')">RU</button>
+                        <button class="dropdown-item" ng-click="$ctrl.changeLanguage('en')">EN</button>
+                    </div>  
+                </div>
+                <div class="row mr-4">
+                    <img src="/images/admin.png" class="rounded" height="40" width="40">
+                    <span class="mt-2">{{$ctrl.LocalStorageService.getItem('userName')}}</span>
+                </div>
+                <div>
+                    <button class="btn btn-outline-primary" ng-click="$ctrl.LocalStorageService.logout()">
+                        {{'LOGOUT' | translate}}
+                    </button>
+                </div> 
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="container" style="padding: 70px">    
+    <h1 class="card-title text-center mt-3">{{'EDIT_CERTIFICATE' | translate}}</h1>
+    <form name="form" novalidate>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <div class="form-group mt-4">
+                    <label for="certificateName">{{'NAME_FIELD' | translate}}</label>
+                    <input class="form-control" id="certificateName" name="certificateName" placeholder="{{'ENTER_CERTIFICATE_NAME' | translate}}"
+                        ng-model="$ctrl.name" 
+                        ng-minlength="2"
+                        ng-maxlength="35"
+                        pattern="([A-Za-z-\d\s]+)"
+                        required
+                        ng-class="{
+                            'is-invalid': (form.$submitted || form.certificateName.$touched) && form.certificateName.$invalid,
+                            'is-valid': (form.$submitted || form.certificateName.$touched) && !(form.certificateName.$error.required 
+                            || form.certificateName.$error.maxlength || form.certificateName.$error.minlength
+                            || form.certificateName.$error.pattern)
+                        }">
+                    <div ng-class="{
+                        'invalid-feedback': form.certificateName.$invalid,
+                        'valid-feedback': (form.certificateName.$touched || form.certificateName.$dirty) && form.certificateName.$valid
+                    }">
+                        <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                            ng-show="form.certificateName.$touched && form.certificateName.$error.required">
+                            {{'REQUIRED_FIELD' | translate}}
+                        </span>
+                        <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                            ng-show="form.certificateName.$touched && form.certificateName.$error.minlength">
+                            {{'CERTIFICATE_NAME_SHORT' | translate}} {{form.certificateName.$viewValue.length}}/2
+                        </span>
+                        <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                            ng-show="form.certificateName.$touched && form.certificateName.$error.maxlength">
+                            {{'CERTIFICATE_NAME_LARGE' | translate}} {{form.certificateName.$viewValue.length}}/35
+                        </span> 
+                        <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                            ng-show="form.certificateName.$touched && form.certificateName.$error.pattern">
+                            {{'NOT_CORRECT_SYMBOL' | translate}}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group mt-4">
+                    <label for="description">{{'DESCRIPTION' | translate}}</label>
+                    <textarea class="form-control" name="description" rows="5" placeholder="{{'ENTER_CERTIFICATE_DESCRIPTION' | translate}}" id="description"
+                        ng-model="$ctrl.description"
+                        ng-minlength="10"
+                        required
+                        ng-class="{
+                            'is-invalid': (form$submitted || form.description.$touched) && form.description.$invalid,
+                            'is-valid': (form.$submitted || form.description.$touched) && !(form.description.$error.required 
+                            || form.description.$error.minlength)
+                        }">
+                    </textarea>
+                    <div ng-class="{
+                        'invalid-feedback': form.description.$invalid,
+                        'valid-feedback': (form.description.$touched || form.description.$dirty) && form.description.$valid
+                    }">
+                        <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                            ng-show="form.description.$touched && form.description.$error.minlength">
+                            {{'CERTIFICATE_DESCRIPTION_SHORT' | translate}} {{form.description.$viewValue.length}}/10
+                        </span>
+                        <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                            ng-show="form.description.$touched && form.description.$error.required">
+                            {{'REQUIRED_FIELD' | translate}}
+                        </span>
+                    </div>
+                </div>
+                <div class="row justify-content-between mt-4">
+                    <div class="form-group col-6">
+                        <label for="certificatePrice">{{'PRICE' | translate}}</label>
+                        <input type="number" class="form-control" id="certificatePrice" placeholder="{{'ENTER_PRICE' | translate}}" name="certificatePrice"
+                            ng-model="$ctrl.price"
+                            ng-min="1"
+                            required 
+                            pattern="([-\d]+)"
+                            ng-class="{
+                                'is-invalid': (form.$submitted || form.certificatePrice.$touched) && form.certificatePrice.$invalid,
+                                'is-valid': (form.$submitted || form.certificatePrice.$touched) && !(form.certificatePrice.$error.required 
+                                    || form.certificatePrice.$error.min || form.certificatePrice.$error.pattern)        
+                            }">
+                        <div ng-class="{
+                            'invalid-feedback': form.certificatePrice.$invalid,
+                            'valid-feedback': (form.certificatePrice.$touched || form.certificatePrice.$dirty) && form.certificatePrice.$valid
+                        }">
+                            <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                                ng-show="form.certificatePrice.$touched && form.certificatePrice.$error.required">
+                                {{'REQUIRED_FIELD' | translate}}
+                            </span>
+                            <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                                ng-show="form.certificatePrice.$touched && form.certificatePrice.$error.min">
+                                {{'CERTIFICATE_PRICE_MIN' | translate}}
+                            </span>
+                            <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                                ng-show="form.certificatePrice.$touched && form.certificatePrice.$error.pattern">
+                                {{'NOT_CORRECT_SYMBOL' | translate}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="duration">{{'DURATION' | translate}}</label>
+                        <input type="number" class="form-control" id="duration" placeholder="{{'ENTER_DURATION' | translate}}" name="duration"
+                            ng-model="$ctrl.duration"
+                            ng-min="1"
+                            ng-max="31"
+                            pattern="([-\d]+)"
+                            required
+                            ng-class="{
+                                'is-invalid': (form.$submitted || form.duration.$touched) && form.duration.$invalid,
+                                'is-valid': (form.$submitted || form.duration.$touched) && !(form.duration.$error.required 
+                                    || form.duration.$error.min || form.duration.$error.max || form.duration.$error.pattern)  
+                            }">
+                        <div ng-class="{
+                            'invalid-feedback': form.duration.$invalid,
+                            'valid-feedback': (form.duration.$touched || form.duration.$dirty) && form.duration.$valid
+                        }">
+                            <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                                ng-show="form.duration.$touched && form.duration.$error.required">
+                                {{'REQUIRED_FIELD' | translate}}
+                            </span>
+                            <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                                ng-show="form.duration.$touched && form.duration.$error.min">
+                                {{'CERTIFICATE_DURATION_MIN' | translate}}
+                            </span>
+                            <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                                ng-show="form.duration.$touched && form.duration.$error.max">
+                                {{'CERTIFICATE_DURATION_MAX' | translate}}
+                            </span>
+                            <span class="row justify-content-end mr-2" style="color: red; font-size: 14px"
+                                ng-show="form.duration.$touched && form.duration.$error.pattern">
+                                {{'NOT_CORRECT_SYMBOL' | translate}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-end mt-4">
+                    <div class="input-group col-6">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">{{'TAG' | translate}}</div>
+                        </div>        
+                        <input type="text" class="form-control" ng-model="$ctrl.tagName" placeholder="{{'ENTER_TAG_NAME' | translate}}">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" ng-click="$ctrl.addTag()" ng-disabled="!$ctrl.tagName">{{'ADD' | translate}}</button>         
+                        </div>  
+                    </div>
+                </div>
+                <div class="row justify-content-start mt-2">
+                    <button ng-repeat="tag in $ctrl.tags" ng-click="$ctrl.removeTag(tag.name)" class="close mt-2 ml-2" aria-label="Close">
+                        <span aria-hidden="true">{{tag.name}}&times;</span>
+                    </button>
+                </div> 
+                <div class="row justify-content-end mt-4 mb-3">
+                    <button class="btn btn-outline-primary col-2 mr-3" ng-click="$ctrl.updateCertificate()" ng-disabled="form.$invalid">
+                        {{'EDIT' | translate}}
+                    </button>
+                    <button class="btn btn-outline-primary col-2 mr-3" ng-click="$ctrl.removeCertificate()">{{'DELETE' | translate}}</button>    
+                </div>       
+            </div>            
+        </div>
+    </form>
+</div>
+    
+    

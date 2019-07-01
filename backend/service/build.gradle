@@ -1,0 +1,6 @@
+def model_mapper_ver = '2.3.2'
+
+dependencies {
+    compile project(":repository")
+    compile group: 'org.modelmapper', name: 'modelmapper', version: "${model_mapper_ver}"
+}
